@@ -1,0 +1,45 @@
+services:
+
+  # ── FastAPI Backend ──────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fraud_api
+    restart: unless-stopped
+    ports:
+      - "10000:10000"
+    env_file:
+      - .env                        # ← reads DATABASE_URL directly from .env file
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:10000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    networks:
+      - fraud_net
+
+  # ── Streamlit Frontend ───────────────────────────────────────────────────────
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fraud_streamlit
+    restart: unless-stopped
+    command: ["streamlit", "run", "app/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env                        # ← same .env file, both services get DATABASE_URL
+    environment:
+      API_BASE_URL: http://api:10000  # ← this is docker-specific, keep it here not in .env
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - fraud_net
+
+networks:
+  fraud_net:
+    driver: bridge

@@ -1,0 +1,38 @@
+# 🔹 Virtual environment (VERY IMPORTANT)
+venv/
+.venv/
+
+# 🔹 Python cache
+__pycache__/
+*.pyc
+
+# 🔹 Jupyter notebooks & checkpoints
+notebooks/
+.ipynb_checkpoints/
+
+# 🔹 Local data (don’t ship data into Docker)
+data/
+
+# 🔹 Images (not needed for API)
+images/
+
+# 🔹 SHAP outputs (visualizations, not needed in API)
+SHAP explanation/
+
+# 🔹 Git files
+.git/
+.gitignore
+
+# 🔹 OS / editor junk
+.DS_Store
+Thumbs.db
+
+# 🔹 Logs / temp
+*.log
+
+# 🔹 Optional: excluding training code because it is not needed in API
+training/
+
+*.csv
+notebooks/
+.env
