@@ -6,7 +6,7 @@ A **Streamlit dashboard** for predicting fraudulent transactions, monitoring mod
 
 ## 🖥️ Live Demo
 
-> 🔗 [streamlit-app-url] *(financial-fraud-detection-streamlit ∙ main ∙ app/streamlit_app.py)*
+> 🔗 [streamlit-app-url] *(https://financial-fraud-detection-app-nbgymfqvphqknnlggptj9p.streamlit.app/)*
 
 ---
 
